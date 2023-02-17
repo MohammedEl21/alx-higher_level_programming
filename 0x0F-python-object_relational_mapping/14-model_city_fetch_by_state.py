@@ -1,19 +1,28 @@
 #!/usr/bin/python3
-""" prints the State object with the name passed as argument from the database
-"""
+"""Displays all City obj from db"""
 import sys
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
 from model_state import Base, State
 from model_city import City
-from sqlalchemy import (create_engine)
-from sqlalchemy.orm import sessionmaker
 
+
+def list_city_obj():
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
+    Base.metadata.create_all(engine)
+
+    session = Session(engine)
+
+    rows = session.query(State, City).join(City).all()
+
+    for i in rows:
+        print("{}: ({}) {}".format(i[0].__dict__['name'],
+                                   i[1].__dict__['id'],
+                                   i[1].__dict__['name']))
+
+    session.close()
 
 if __name__ == "__main__":
-    engine = create_engine('mysql+mysqldb://{}:{}@localhost:3306/{}'
-                           .format(sys.argv[1], sys.argv[2], sys.argv[3]))
-    Base.metadata.create_all(engine)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    for instance in (session.query(State.name, City.id, City.name)
-                     .filter(State.id == City.state_id)):
-        print(instance[0] + ": (" + str(instance[1]) + ") " + instance[2])
+    list_city_obj()

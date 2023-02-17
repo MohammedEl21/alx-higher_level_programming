@@ -1,40 +1,27 @@
 #!/usr/bin/python3
-# -*- coding: utf-8 -*-
+"""Square inherits from Rectangle which inherits from BaseGeometry
 """
-Created on Fri May 29 15:13:37 2020
-
-@author: Robinson Montes
-"""
+Rectangle = __import__('9-rectangle').Rectangle
 
 
-BaseGeometry = __import__('7-base_geometry').BaseGeometry
-
-
-class Square(BaseGeometry):
+class Square(Rectangle):
+    """Square data that inherits from Rectangle
+       init `size` twice because width and height are same in squares
     """
-    A Square class shape, inheirts from BaseGeometry
-    """
+
     def __init__(self, size):
-        """"
-        Init function for Square
-
-        Attributes:
-            size (int): The size of the square
-        """
-        self.integer_validator("size", size)
+        super().integer_validator("size", size)
+        super().__init__(size, size)
         self.__size = size
 
-    def __str__(self):
-        """
-        str funtion to print with/height
-
-        Returns:
-            Return width/height
-        """
-        return '[Square] ' + str(self.__size) + '/' + str(self.__size)
-
     def area(self):
+        """Method to calculate area of the square
         """
-        A function that calculates the area of the Square
+
+        return self.__size * self.__size
+
+    def __str__(self):
+        """Magic method to print square description
         """
-        return self.__size ** 2
+
+        return "[Square] {}/{}".format(self.__size, self.__size)

@@ -1,14 +1,16 @@
 #!/usr/bin/python3
-"""dds a new attribute to an object
-if it’s possible
+"""Function add_attribute
 """
 
 
-def add_attribute(obj, attribute, value):
-    """dds a new attribute"""
-    if '__dict__' not in dir(obj):
+def add_attribute(a_class, name, value):
+    """Adds new attribute to an object if it's possible
+    """
+
+    # Set for O(1) membership test
+    cannot_add = {int, str, float, list, dict, tuple, frozenset, type, object}
+
+    if type(a_class) in cannot_add:
         raise TypeError("can't add new attribute")
-    if '__slots__' in dir(obj):
-        raise TypeError("can't add new attribute")
-    else:
-        setattr(obj, attribute, value)
+
+    a_class.__setattr__(name, value)

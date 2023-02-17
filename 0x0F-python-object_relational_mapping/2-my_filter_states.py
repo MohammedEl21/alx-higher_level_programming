@@ -1,17 +1,36 @@
 #!/usr/bin/python3
-"""  lists all states from the database hbtn_0e_0_usa """
+"""Display name argument of states table"""
 import MySQLdb
 import sys
 
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
+def filter_names():
+    """Takes arguments argv to list from database
+    Only lists with states that matches name argument
+
+    Arguments:
+        argv[1]: mysql username
+        argv[2]: mysql password
+        argv[3]: database name
+        argv[4]: state name
+    """
+    db = MySQLdb.connect(host="localhost",
+                         port=3306,
+                         user=sys.argv[1],
+                         passwd=sys.argv[2],
+                         db=sys.argv[3])
+
     cur = db.cursor()
-    cur.execute("SELECT * FROM states WHERE name LIKE BINARY '{}'"
-                .format(sys.argv[4]))
+
+    cur.execute("SELECT * FROM states WHERE BINARY name='{:s}'\
+                ORDER BY id ASC".format(sys.argv[4]))
     rows = cur.fetchall()
-    for row in rows:
-        print(row)
+    for i in rows:
+        print(i)
+
     cur.close()
     db.close()
+
+
+if __name__ == "__main__":
+    filter_names()

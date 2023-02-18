@@ -1,8 +1,4 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
-
-=======
->>>>>>> 21df5dbd623a82de9567361e198ae9da9459b0c2
 if __name__ == "__main__":
     import sys
     args = len(sys.argv) - 1
@@ -20,4 +16,3 @@ if __name__ == "__main__":
         print(len(sys.argv) - 1, "arguments:")
         for i in range(1, len(sys.argv)):
             print("{}: {}".format(i, sys.argv[i]))
->>>>>>> 21df5dbd623a82de9567361e198ae9da9459b0c2

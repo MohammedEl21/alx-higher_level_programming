@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Python - import & modules
 
 In this project, I learned about importing and using functions and creating
@@ -69,4 +70,7 @@ modules in Python. I further practiced using the builtin function
   * [103-fast_alphabet.py](./103-fast_alphabet.py): Python program that prints the alphabet in
   uppercase, followed by a new line.
   * Without using loops, conditoinals, `str.join()`, string literals, or system calls.
+=======
+# 0x02. Python - import & modules
+>>>>>>> adc4c155194189012797298b7d2b057c12600bad
 
